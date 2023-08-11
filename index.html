@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Tutorial</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <!--Marker Cluster-->
+    <link rel="stylesheet" href="./dist/MarkerCluster.css">
+    <link rel="stylesheet" href="./dist/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="./leaflet.legend.css">
+    <style>
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+
+        .info {
+            padding: 6px 8px;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .info h4 {
+            margin: 0 0 5px;
+            color: #777;
+        }
+
+        .legend {
+            line-height: 18px;
+            color: #555;
+        }
+
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="map"></div>
+</body>
+
+</html>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="./data/Bhotekoshi_Yes.geojson"></script>
+<script src="./data/bhotekoshi.geojson"></script>
+<script src="./data/Bhotekoshi_Yes.js"></script>
+<script src="./data/bhotekoshi.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="./data/bhotekoshi_No.geojson"></script>
+<script src="./data/bhotekoshi_No.js"></script>
+<script src="./dist/leaflet.markercluster.js"></script>
+<script src="./leaflet.legend.js"></script>
+<script>
+
+    /*===================================================
+                      OSM  LAYER               
+===================================================*/
+
+    var map = L.map('map').setView([27.9329944, 85.9473792], 11);
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    });
+    osm.addTo(map);
+
+    /*===================================================
+                          MARKER               
+    ===================================================*/
+
+
+    /*===================================================
+                         TILE LAYER               
+    ===================================================*/
+
+    var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19,
+    });
+    CartoDB_DarkMatter.addTo(map);
+
+    // Google Map Layer
+
+    googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    });
+    googleStreets.addTo(map);
+
+    // Satelite Layer
+    googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    });
+    googleSat.addTo(map);
+
+
+
+
+
+
+
+
+    /*==============================================
+                            MARKER
+        ================================================*/
+    var redicon = L.icon({
+        iconUrl: 'data/redicon.svg',
+        iconSize: [40, 40],
+        iconAnchor: [0, 0],
+    });
+
+    var greenicon = L.icon({
+        iconUrl: 'data/greenicon.svg',
+        iconSize: [40, 40],
+        iconAnchor: [0, 0],
+    });
+
+    /*===================================================
+                      GEOJSON               
+===================================================*/
+
+    //var Barhabise = L.geoJSON(barhabise).addTo(map);
+    var Bhotekoshi = L.geoJSON(bhotekoshi, {
+        color: "red",
+        fillOpacity: 0,
+    }).addTo(map);
+
+
+    //----------------CAT-2------------------------//
+    var Bhotekoshi_Yes = L.geoJSON(Bhotekoshi_Yes, {
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, { icon: greenicon });
+        },
+        onEachFeature: function (feature, latlng) {
+            latlng.bindPopup('<b> CAT: </b>' + feature.properties.Cat + '<br>'
+                + '<b> HouseHold Head: </b>' + feature.properties.Head + '<br>'
+                + '<b> Ward Number: </b>' + feature.properties.Ward + '<br>'
+                + '<b> Settlement: </b>' + feature.properties.Settlement + '<br>');
+        }
+    });
+    const markers1 = L.markerClusterGroup().addLayer(Bhotekoshi_Yes);
+    map.addLayer(markers1);
+
+    //-------------------------------CAT-3-----------------------------//
+    var Bhotekoshi_No = L.geoJSON(bhotekoshi_No, {
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, { icon: redicon });
+        },
+        onEachFeature: function (feature, latlng) {
+            latlng.bindPopup('<b> CAT: </b>' + feature.properties.Cat + '<br>'
+                + '<b> HouseHold Head: </b>' + feature.properties.Head + '<br>'
+                + '<b> Ward Number: </b>' + feature.properties.Ward + '<br>'
+                + '<b> Settlement: </b>' + feature.properties.Settlement + '<br>');
+        }
+    });
+    const markers = L.markerClusterGroup().addLayer(Bhotekoshi_No);
+    map.addLayer(markers);
+
+
+    /*===================================================
+                        Legend               
+  ===================================================*/
+  const legend = L.control.Legend({
+            position: "bottomleft",
+            collapsed: false,
+            symbolWidth: 24,
+            opacity: 1,
+            column: 1,
+            legends: [{
+                label: "Marker1",
+                type: "image",
+                url: "data/greenicon.svg",
+            }, {
+                label: "Marker2",
+                type: "image",
+                url: "data/redicon.svg"
+            }, {
+                label: "Bhotekoshi Boundary",
+                type: "polyline",
+                color: "red",
+                fillColor: "#FF0000",
+                weight: 3,
+                layers: Bhotekoshi
+            }]
+        })
+        .addTo(map);
+ 
+     /*===================================================
+                           LAYER CONTROL               
+     ===================================================*/
+
+    var overlays = {
+        "Bhotekoshi": Bhotekoshi,
+        "Bhotekoshi_Yes": Bhotekoshi_Yes,
+        "Bhotekoshi_No":Bhotekoshi_No,
+    };
+
+    var baseLayers = {
+        "Satellite": googleSat,
+        "Google Map": googleStreets,
+        "OpenStreetMap": osm,
+    };
+
+
+
+    L.control.layers(baseLayers, overlays).addTo(map);
+
+
+    /*===================================================
+                          SEARCH BUTTON               
+    ===================================================*/
+
+
+
+
+    L.Control.geocoder().addTo(map);
+
+
+
+</script>
