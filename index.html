@@ -61,9 +61,30 @@
 <script src="./data/bhotekoshi.js"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 <script src="./data/bhotekoshi_No.geojson"></script>
+
+<script src="./data/evacuation_assembly_area.geojson"></script>
+<script src="./data/evacuation_assembly_area.js"></script>
+<script src="./data/evacuation_assembly_polygon.geojson"></script>
+<script src="./data/evacuation_assembly_polygon.js"></script>
+<script src="./data/evacuation_site.geojson"></script>
+<script src="./data/evacuation_site.js"></script>
+<script src="./data/kholsi.geojson"></script>
+<script src="./data/kholsi.js"></script>
+<script src="./data/foottrail.geojson"></script>
+<script src="./data/foottrail.js"></script>
+<script src="./data/landslide.geojson"></script>
+<script src="./data/landslide.js"></script>
+<script src="./data/road_way.geojson"></script>
+<script src="./data/road_way.js"></script>
+
 <script src="./data/bhotekoshi_No.js"></script>
 <script src="./dist/leaflet.markercluster.js"></script>
 <script src="./leaflet.legend.js"></script>
+
+
+
+
+
 <script>
 
     /*===================================================
@@ -71,6 +92,7 @@
 ===================================================*/
 
     var map = L.map('map').setView([27.9329944, 85.9473792], 11);
+
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     });
@@ -128,6 +150,29 @@
         iconSize: [40, 40],
         iconAnchor: [0, 0],
     });
+    var evacuation_center = L.icon({
+        iconUrl: 'data/evacuation_center.svg',
+        iconSize: [40, 40],
+        iconAnchor: [0, 0],
+    });
+    var evacuation_assembly = L.icon({
+        iconUrl: 'data/evacuation_assembly.svg',
+        iconSize: [30, 30],
+        iconAnchor: [0, 0],
+    });
+
+    var landslide_icon = L.icon({
+        iconUrl: 'data/landslide.svg',
+        iconSize: [25, 25],
+        iconAnchor: [0, 0],
+    });
+
+
+    var kholsi_icon = L.icon({
+        iconUrl: 'data/kholsi.svg',
+        iconSize: [30, 30],
+        iconAnchor: [0, 0],
+    });
 
     /*===================================================
                       GEOJSON               
@@ -140,10 +185,71 @@
     }).addTo(map);
 
 
+    //evacuation assembly polygon:
+    var Evacuation_assembly_pol = L.geoJSON(evacuation_assembly_polygon, {
+        color: "yellow",
+        fillOpacity: 0.5,
+    }).addTo(map);
+
+
+
+    //Roads
+     var RoadWay = L.geoJSON(road_way, {
+        color: "blue",
+        fillOpacity: 0.5,
+        outerWidth:0.7,
+    }).addTo(map);
+
+    var FootTrail = L.geoJSON(foottrail, {
+        color: "green",
+        fillOpacity: 0.5,
+        outerWidth:0.7,
+    }).addTo(map);
+
+
+
+///POint data------------------///
+
+//landslide
+var Landslide_Point = L.geoJSON(landslide, {
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, { icon: landslide_icon });
+        },
+    });
+map.addLayer(Landslide_Point);
+
+//kholsi
+var Kholsi_Point = L.geoJSON(kholsi, {
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, { icon: kholsi_icon });
+        },
+    });
+map.addLayer(Kholsi_Point);
+
+
+//evacuation_center
+var Evacuationcenter_Point = L.geoJSON(evacuation_site, {
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, { icon: evacuation_center });
+        },
+    });
+map.addLayer(Evacuationcenter_Point);
+
+
+//evacuation_assembly
+
+var Evacuationassembly_Point = L.geoJSON(evacuation_assembly_area, {
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, { icon: evacuation_assembly });
+        },
+    });
+map.addLayer(Evacuationassembly_Point);
+
+
     //----------------CAT-2------------------------//
     var Bhotekoshi_Yes = L.geoJSON(Bhotekoshi_Yes, {
         pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, { icon: greenicon });
+            return L.marker(latlng, { icon: redicon });
         },
         onEachFeature: function (feature, latlng) {
             latlng.bindPopup('<b> CAT: </b>' + feature.properties.Cat + '<br>'
@@ -158,7 +264,7 @@
     //-------------------------------CAT-3-----------------------------//
     var Bhotekoshi_No = L.geoJSON(bhotekoshi_No, {
         pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, { icon: redicon });
+            return L.marker(latlng, { icon: greenicon });
         },
         onEachFeature: function (feature, latlng) {
             latlng.bindPopup('<b> CAT: </b>' + feature.properties.Cat + '<br>'
@@ -171,42 +277,83 @@
     map.addLayer(markers);
 
 
+
+
     /*===================================================
                         Legend               
   ===================================================*/
-  const legend = L.control.Legend({
-            position: "bottomleft",
-            collapsed: false,
-            symbolWidth: 24,
-            opacity: 1,
-            column: 1,
-            legends: [{
-                label: "Marker1",
-                type: "image",
-                url: "data/greenicon.svg",
-            }, {
-                label: "Marker2",
-                type: "image",
-                url: "data/redicon.svg"
-            }, {
-                label: "Bhotekoshi Boundary",
-                type: "polyline",
-                color: "red",
-                fillColor: "#FF0000",
-                weight: 3,
-                layers: Bhotekoshi
-            }]
-        })
+    const legend = L.control.Legend({
+        position: "bottomleft",
+        collapsed: false,
+        symbolWidth: 24,
+        opacity: 1,
+        column: 1,
+        legends: [{
+            label: "SSA Holder HH at Landslide Risk",
+            type: "image",
+            url: "data/redicon.svg",
+        }, {
+            label: "HH at Landslide Risk",
+            type: "image",
+            url: "data/greenicon.svg"
+        }, {
+            label: "Bhotekoshi Boundary",
+            type: "polyline",
+            color: "red",
+            fillColor: "#FF0000",
+            weight: 3,
+            layers: Bhotekoshi
+        },{
+            label: "Road Way",
+            type: "polyline",
+            color: "blue",
+            fillColor: "#FF0000",
+            weight: 2,
+            layers: RoadWay
+        },
+        {
+            label: "Foot Trail",
+            type: "polyline",
+            color: "green",
+            fillColor: "#FF0000",
+            weight: 2,
+            layers: FootTrail
+        }, {
+            label: "Landslide Point",
+            type: "image",
+            url: "data/landslide.svg"
+        }, {
+            label: "Kholsi",
+            type: "image",
+            url: "data/kholsi.svg"
+        }, {
+            label: "Evacuation Center",
+            type: "image",
+            url: "data/evacuation_center.svg"
+        }, {
+            label: "Evacuation Assembly Point",
+            type: "image",
+            url: "data/evacuation_assembly.svg"
+        }
+    
+    
+    
+    ]
+    })
         .addTo(map);
- 
-     /*===================================================
-                           LAYER CONTROL               
-     ===================================================*/
+
+    /*===================================================
+                          LAYER CONTROL               
+    ===================================================*/
 
     var overlays = {
         "Bhotekoshi": Bhotekoshi,
-        "Bhotekoshi_Yes": Bhotekoshi_Yes,
-        "Bhotekoshi_No":Bhotekoshi_No,
+        "SSA Holder HH at Landslide Risk": Bhotekoshi_Yes,
+        "HH at Landslide Risk": Bhotekoshi_No,
+        "Landslide Point":Landslide_Point,
+        "Kholsi":Kholsi_Point,
+        "Evacuation Center":Evacuationcenter_Point,
+        "Evacuation Assembly Point":Evacuationassembly_Point,
     };
 
     var baseLayers = {

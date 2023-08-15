@@ -1,0 +1,12 @@
+var kholsi={
+"type": "FeatureCollection",
+"name": "kholsi",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Kholsi", "description": "<h4>Layer: points</h4><h4>Feature ID: 16</h4><p>Remarks: </p><p>Fix Quality: Single</p><table border='1'> <tr><td>text</td><td>stream crossing</td></tr> <tr><td>photo</td><td><img src='C:/Users/shrnab01/AppData/LocalLow/Google/GoogleEarth/Jan 4_20230104_145450587_1_0.jpg' width='200' /></td></tr> <tr><td>photo 2</td><td></td></tr></table>", "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 85.88545, 27.887205, 1912.7 ] } },
+{ "type": "Feature", "properties": { "Name": "Kholsi", "description": "<h4>Layer: points</h4><h4>Feature ID: 20</h4><p>Remarks: </p><p>Fix Quality: Single</p><table border='1'> <tr><td>text</td><td>Stream crossing</td></tr> <tr><td>photo</td><td><img src='C:/Users/shrnab01/AppData/LocalLow/Google/GoogleEarth/Jan 4_20230104_155056492_0.jpg' width='200' /></td></tr> <tr><td>photo 2</td><td><img src='C:/Users/shrnab01/AppData/LocalLow/Google/GoogleEarth/Jan 4_20230104_155114525_0.jpg' width='200' /></td></tr></table>", "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 85.903335, 27.897328333333341, 1551.9 ] } },
+{ "type": "Feature", "properties": { "Name": "Kholsi", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 85.921185306696245, 27.870164153461939, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Kholsi", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 85.921416439477653, 27.870890693848999, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Kholsi", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 85.921611964164882, 27.90263933554612, 0.0 ] } }
+]
+}

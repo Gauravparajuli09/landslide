@@ -1,0 +1,13 @@
+{
+"type": "FeatureCollection",
+"name": "evacuation_assembly_area",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Temporary Assembly area", "description": "<h4>Layer: evacuation site</h4><h4>Feature ID: 10</h4><p>Remarks: </p><p>Fix Quality: Single</p><table border='1'> <tr><td>photo</td><td><img src='C:/Users/shrnab01/AppData/LocalLow/Google/GoogleEarth/Jan 4_20230104_141007000_1_0.jpg' width='200' /></td></tr> <tr><td>text</td><td></td></tr> <tr><td>photo2</td><td><img src='C:/Users/shrnab01/AppData/LocalLow/Google/GoogleEarth/Jan 4_20230104_141021453_1_0.jpg' width='200' /></td></tr></table>", "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 85.891491666666667, 27.884973333333331, 1868.5 ] } },
+{ "type": "Feature", "properties": { "Name": "Assembly point", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 85.932036582358052, 27.934796935225499, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Assembly Point", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 85.947654366885061, 27.943556234850551, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Temporary assembly point", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 85.941637365347546, 27.93552370543572, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Evacuation assembly point", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 85.959681543036979, 27.97185529662146, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Evacuation Assembly point", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 85.940879932262362, 27.910305014209541, 0.0 ] } }
+]
+}
